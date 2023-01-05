@@ -1,0 +1,197 @@
+﻿@using EntityLayer.Concrete
+@model StokTakipCoreV3.Models.SiparisView
+
+<!--Siparis Düzenleme Modal -->
+@using (Html.BeginForm("SiparisDuzenle", "Siparisler", FormMethod.Post, new { id = "stokekle", @class = "form-inline needs-validation novalidate", role = "form" }))
+{
+
+    <div class="modal note-modal-header fade text-left modal-lg" id="SiparisEdit" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Sipariş Bilgilerini Güncelle</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- // Basic multiple Column Form section start -->
+                    <section id="multiple-column-form">
+                        <div class="row match-height">
+                            <div class="col-12">
+                                <div class="card">
+                                    @*<div class="card-header">*@
+                                    @*</div>*@
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form">
+                                                <div class="row">
+                                                    @Html.TextBoxFor(x => x.OrderEdit.OrderID, new { type = "hidden" })
+                                                    <div class="col-md-12 col-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x=>x.OrderEdit.CompanyID)
+                                                        </div>
+
+                                                        <select asp-for="OrderEdit.CompanyID" asp-items="@ViewBag.firmalist" id="select2" class="form-select" required>
+                                                            <option selected disabled value=""></option>
+                                                        </select>
+                                                        <div class="valid-feedback">
+                                                        </div>
+                                                        <div class="invalid-feedback">
+                                                            @Html.ValidationMessageFor(x => x.OrderEdit.CompanyID, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x=>x.OrderEdit.OrderAdres)
+                                                            <br>
+                                                            <label for="myCheck">Başka Bir Adrese Gidecek:</label>
+                                                            <input type="checkbox" id="myCheck" onclick="myFunction()">
+
+
+                                                            <textarea type="text" required asp-for="OrderEdit.OrderAdres" class="form-control" rows="5"></textarea>
+                                                            <div class="valid-feedback">
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                @Html.ValidationMessageFor(x => x.OrderEdit.OrderAdres, "", new { @class = "text-danger" })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                               <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x=>x.OrderEdit.OrderTarih)
+                                                            <input type="date" required asp-for="OrderEdit.OrderTarih" class="form-control">
+                                                            <div class="valid-feedback">
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                @Html.ValidationMessageFor(x => x.OrderEdit.OrderTarih, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            @Html.Label("Satış Nedeni")
+                                                            <select asp-for="OrderEdit.OrderNedeni" asp-items="@ViewBag.nedenler" class="form-select" required>
+                                                                <option selected disabled value=""></option>
+                                                            </select>
+                                                            <div class="valid-feedback">
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                @Html.ValidationMessageFor(x => x.OrderEdit.OrderNedeni, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @Html.TextBoxFor(x => x.OrderEdit.OrderNot, new { type = "hidden" })
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary me-1 mb-1">Güncelle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+<script type="text/javascript">
+    $(function() {
+        $('#select2').change(function() {
+            var companyid = $("#select2").val();
+            var checkBox = document.getElementById("myCheck");
+            $.ajax({
+                type: "POST",
+                url: "/Siparisler/SiparisEkleGetCompanyAdress",
+                data: { id: companyid },
+                success: function(data) {
+                    if (checkBox.checked == true) {
+                        $('#OrderEdit_OrderAdres').html("");
+                    }
+                    else {
+                        $('#OrderEdit_OrderAdres').html(data);
+                    }
+                }
+
+            });
+
+
+        })
+    })
+</script>
+
+
+<script>
+    function myFunction() {
+        var checkBox = document.getElementById("myCheck");
+        var companyid = $("#select2").val();
+        if (checkBox.checked == true) {
+            $('#OrderEdit_OrderAdres').html("");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/Siparisler/SiparisEkleGetCompanyAdress",
+                data: { id: companyid },
+                success: function(data) {
+                    $('#OrderEdit_OrderAdres').html(data);
+                }
+
+            });
+        }
+    }
+</script>
+
+
+<script type="text/javascript">
+    $(function() {
+        $("[id*=select2]").select2({
+            theme: 'bootstrap4',
+            dropdownParent: $("#SiparisEdit"),
+            dropdownAutoWidth: true,
+            width: 'auto',
+        });
+    });
+</script>
+
+
+
+
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>

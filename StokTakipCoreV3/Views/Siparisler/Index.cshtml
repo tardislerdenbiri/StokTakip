@@ -1,0 +1,147 @@
+﻿@using EntityLayer.Concrete
+@model StokTakipCoreV3.Models.OrderListAndOrderAdd
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Sisteme Kayıtlı Siparişler</h3>
+                <p class="text-subtitle text-muted">Bu sayfada siparişleri görüntüleyebilir, geçmişe dönük işlemleri görüntüleyebilirsiniz. </p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            @*<div class="card-header">
+
+            </div>*@
+            <div class="card-body">
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Tarih/Saat</th>
+                            <th>Firma Adı</th>
+                            <th>Durum</th>
+                            <th>Sipariş Nedeni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Orders.OrderByDescending(x => x.OrderID))
+                        {
+                            <tr>
+                                <td>@(((DateTime)item.OrderTarih).ToString("dd MMMM yyyy dddd"))</td>
+                                <td>@item.Company.CompanyName</td>
+                                @if (@item.OrderDurum == true)
+                                {
+
+                                    <td> <span class="badge bg-success">@Html.Label("Tamamlandı")</span></td>
+
+                                }
+                                else
+                                {
+                                    <td><span class="badge bg-danger">@Html.Label("Bekleniyor")</span></td>
+                                }
+                                <td>@item.OrderNedeni</td>
+
+                                @if (@item.OrderDurum == true)
+                                {
+
+                                    <td> <a role="button" href="/Siparisler/HSiparisGoruntule/@item.OrderID" class="btn btn-info btn-block">Detay</a></td>
+
+                                }
+                                else
+                                {
+                                    <td> <a role="button" href="/Siparisler/SiparisGoruntule/@item.OrderID" class="btn btn-info btn-block">Detay</a></td>
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                        data-bs-target="#SiparisEkle">
+                    Yeni Sipariş Oluştur
+                </button>
+            </div>
+        </div>
+
+    </section>
+</div>
+
+
+
+<!--Modal Start -->
+
+@await Html.PartialAsync("/Views/Siparisler/_SiparisOlustur.cshtml")
+
+<!--Modal End -->
+
+
+
+
+
+
+
+@* ---------------------------Toast Bildirimleri---------------------------------*@
+
+@if (TempData["SiparisSil"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Sipariş Silindi.'
+        })
+    </script>
+}
+
+
+@if (TempData["SiparisOlustur"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Siparis Oluşturuldu.'
+        })
+    </script>
+}
+@* -------------------------Toast Bildirimleri Son--------------------------------*@
+

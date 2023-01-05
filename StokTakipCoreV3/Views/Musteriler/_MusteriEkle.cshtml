@@ -1,0 +1,113 @@
+﻿@model StokTakipCoreV3.Models.FirmaListAndFirmaAdd
+
+<!--Yeni Musteri Ekleme Modal -->
+@using (Html.BeginForm("MusteriEkle", "Musteriler", FormMethod.Post, new { @class = "form-inline needs-validation novalidate", role = "form", }))
+{
+
+    @Html.AntiForgeryToken()
+    <div class="modal note-modal-header fade text-left modal-lg" id="Musteriekle" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Yeni Musteri Ekle</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- // Temel çoklu Sütun Formu bölümü başlangıcı -->
+                    <section id="multiple-column-form">
+                        <div class="row match-height">
+                            <div class="col-12">
+                                <div class="card">
+                                    @*<div class="card-header">*@
+                                    <h6 class="text-danger"> </h6>
+                                    @*</div>*@
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form-group">
+                                                <div class="row">
+
+                                                    @Html.TextBoxFor(x => x.Company.CompanyID, new { type = "hidden" })
+                                                    <div class="col-md-12 col-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x=>x.Company.CompanyName)
+                                                            <input type="text" required asp-for="Company.CompanyName" class="form-control">
+                                                            <div class="valid-feedback">
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                @Html.ValidationMessageFor(x => x.Company.CompanyAdress, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x=>x.Company.CompanyAdress)
+                                                            <textarea type="text" required asp-for="Company.CompanyAdress" class="form-control" rows="4"></textarea>
+                                                            <div class="valid-feedback">
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                @Html.ValidationMessageFor(x => x.Company.CompanyAdress, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            @Html.LabelFor(x=>x.Company.CompanyPhone)
+                                                            <input type="number" required asp-for="Company.CompanyPhone" class="form-control">
+                                                            <div class="valid-feedback">
+                                                            </div>
+                                                            <div class="invalid-feedback">
+                                                                @Html.ValidationMessageFor(x => x.Company.CompanyPhone, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button type="submit" id="btnRegister" class="btn btn-primary me-1 mb-1">Ekle</button>
+                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Temizle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()</script>

@@ -1,0 +1,303 @@
+﻿@model StokTakipCoreV3.Models.ProductsAndStokView
+
+@{
+    ViewData["Title"] = "UrunGoruntule";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Ürün Detaylı Görüntüleme</h3>
+            <p class="text-subtitle text-muted">Bu alan sisteme kayıtlı olan ürünün stok miktarının hangi depoda olduğunun ve stoğa ne zaman eklendiğinin gösterildiği alandır.</p>
+        </div>
+        <div class="col-12 col-md-6 order-md-2 order-first">
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                <ol class="breadcrumb">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#musteribilgiedit">
+                        Ürün Bilgilerini Düzenle
+                    </button>&nbsp;
+                    <a href="/Urunler/UrunSil/@Model.Products.ProductsID">
+                        <button class="btn btn-danger">Ürünü Sil</button>
+                    </a>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@*@using (Html.BeginForm("FirmaGoruntule", "Firmalar", FormMethod.Post))
+    {*@
+
+<!-- // Basic multiple Column Form section start -->
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                @*<div class="card-header">
+
+                </div>*@
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Marka")
+                                        @Html.TextBoxFor(x => x.Products.ProductsMarka, new { disabled = "disabled", @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Model")
+                                        @Html.TextBoxFor(x => x.Products.ProductsModel, new { disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+<div class="page-content">
+    <section class="row">
+        <div class="col-12 col-lg-12">
+            <div class="row">
+                <div class="col-6 col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body px-4 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                    <div class="stats-icon purple mb-2">
+                                        <i class="iconly-boldShow"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                    <h6 class="text-muted font-semibold">Toplam Stok</h6>
+                                    <h6 class="font-extrabold mb-0">@ViewBag.toplamstok Adet</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* @foreach (var item in Model.Depolar)
+                {
+                <div class="col-6 col-lg-3 col-md-6">
+                <div class="card">
+                <div class="card-body px-4 py-4-5">
+                <div class="row">
+                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                <div class="stats-icon purple mb-2">
+                <i class="iconly-boldShow"></i>
+                </div>
+                </div>
+                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                <h6 class="text-muted font-semibold">@item.DepoAdi</h6>
+                <h6 class="font-extrabold mb-0">@ViewBag.test2 Adet</h6>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                }*@
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+<section class="section">
+    <div class="card">
+        <div class="card-header">
+            <b>Ürün Stoğu</b>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        @* <th>Depo</th>*@
+                        <th>Bulunduğu Depo</th>
+                        <th>Stoğa Giriş Tarihi</th>
+                        <th>Seri No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Stoks.OrderByDescending(x => x.StokID))
+                    {
+                        <tr>
+                            <td>@item.Stores.StoresName</td>
+                            <td>@(((DateTime)item.StokTarih).ToString("dd-MMM-yyyy | HH:mm"))</td>
+                            <td>@item.StokSn</td>
+                            <td> <a role="button" href="/Urunler/UrunStokSil/@item.StokID" class="btn btn-danger btn-block">Kaldır</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                    data-bs-target="#urunstokekle">
+                Ürün'e Stok Ekle
+            </button>
+        </div>
+    </div>
+
+</section>
+<!-- // Basic multiple Column Form section end -->
+@*}*@
+
+
+
+
+
+
+<!--Modal Start -->
+
+@await Html.PartialAsync("/Views/Urunler/_UrunStokEkle.cshtml")
+@await Html.PartialAsync("/Views/Urunler/_UrunDuzenle.cshtml")
+
+<!--Modal End -->
+
+
+
+
+
+
+
+@* ---------------------------Toast Bildirimleri---------------------------------*@
+
+@if (TempData["UrunUpdate"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1800,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Ürün bilgileri güncellendi.'
+        })
+
+    </script>
+}
+
+@if (TempData["UrunStokSil"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1800,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Stoktan kaldırıldı.'
+        })
+
+    </script>
+}
+
+@if (TempData["UrunStokEkle"] != null)
+{
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1800,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Ürün/Ürünler stoğa eklendi.'
+        })
+
+    </script>
+}
+@* -------------------------Toast Bildirimleri Son--------------------------------*@
+
+
+
+
+
+
+
+
+
+
+<script src="~/js/html5-qrcode.min.js"></script>
+<script>
+    function docReady(fn) {
+        // see if DOM is already available
+        if (document.readyState === "complete" ||
+            document.readyState === "interactive") {
+            // call on next available tick
+            setTimeout(fn, 1);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }
+
+    docReady(function() {
+        var resultContainer = document.getElementById('qr-reader-results');
+        var lastResult, countResults = 0;
+
+        function onScanSuccess(decodedText, decodedResult) {
+            if (decodedText !== lastResult) {
+                ++countResults;
+                lastResult = decodedText;
+                // Handle on success condition with the decoded message.
+                console.log(`Scan result ${decodedText}`, decodedResult);
+                document.getElementById('Stok_StokSn').value = decodedText;
+                if (confirm(decodedText)) {
+                    document.getElementById("stokekle").submit();
+                } else {
+                    alert('Stoğa eklenmedi.');
+                }
+
+            }
+        }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", {
+            fps: 60,
+            qrbox: 150
+        });
+        html5QrcodeScanner.render(onScanSuccess);
+
+    });
+
+</script>

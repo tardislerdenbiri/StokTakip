@@ -1,0 +1,269 @@
+﻿@using EntityLayer.Concrete
+@model StokTakipCoreV3.Models.SiparisView
+@{
+    ViewData["Title"] = "SiparisGoruntule";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Sipariş Görüntüleme</h3>
+            <p class="text-subtitle text-muted">Bu alan siparişe ait detaylı görünütleme yapıldığı alandır.</p>
+        </div>
+        <div class="col-12 col-md-6 order-md-2 order-first">
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                <ol class="breadcrumb">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#SiparisEdit">
+                        Sipariş Bilgilerini Düzenle
+                    </button>&nbsp;
+                    <a href="/Siparisler/SiparisSil/@Model.Order.OrderID">
+                        <button class="btn btn-danger">Siparişi Sil</button>
+                    </a>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@*@using (Html.BeginForm("SiparisGoruntule", "Siparisler", FormMethod.Post))
+    {*@
+
+<!-- // Basic multiple Column Form section start -->
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-6">
+            <div class="card">
+                @*<div class="card-header">
+
+                </div>*@
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Sipariş Tarih/Saat")
+                                        @Html.TextBoxFor(x => x.Order.OrderTarih, "{0:dd-MMM-yyyy}", new { disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Sipariş Nedeni")
+                                        @Html.TextBoxFor(x => x.Order.OrderNedeni, new { disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Firma Adı")
+                                        @Html.TextBoxFor(x => x.Order.Company.CompanyName, new { disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Gönderilen Adres")
+                                        @Html.TextAreaFor(x => x.Order.OrderAdres, new { disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card">
+                @*<div class="card-header">
+
+                </div>*@
+                <div class="card-content">
+                    <div class="card-body">
+                        @using (Html.BeginForm("SiparisNotGuncelle", "Siparisler", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-12">
+                                    @Html.TextBoxFor(x => x.Order.OrderID, new { type = "hidden" })
+                                    <div class="form-group">
+                                        @Html.Label("Sipariş Notları")
+                                        @Html.TextAreaFor(x => x.Order.OrderNot, new { @rows =4, @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button class="btn btn-info">Güncelle</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="card">
+        @*<div class="card-header">
+
+        </div>*@
+        <div class="card-body">
+            <table class="table table-striped" id="table1">
+                <thead>
+                    <tr>
+                        <th>Marka</th>
+                        <th>Model</th>
+                        <th>Ürün SN</th>
+                        <th>Çıkış Deposu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Stoks)
+                    {
+                        <tr>
+                            <td>@item.Products.ProductsMarka</td>
+                            <td>@item.Products.ProductsModel</td>
+                            <td>@item.StokSn</td>
+                            <td>@item.Stores.StoresName</td>
+                             <td> <a role="button" href="/Siparisler/SiparisUrunSil/@item.StokID" class="btn btn-danger btn-block">Kaldır</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#siparisurunekle">
+                        Sipariş Ürün Ekle
+                    </button>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+<!--Modal Start -->
+
+@await Html.PartialAsync("/Views/Siparisler/_SiparisUrunEkle.cshtml")
+@await Html.PartialAsync("/Views/Siparisler/_SiparisDuzenle.cshtml")
+
+<!--Modal End -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* ---------------------------Toast Bildirimleri---------------------------------*@
+
+@if (TempData["SiparisNotGuncelle"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Siparis notu güncellendi.'
+        })
+    </script>
+}
+
+
+@if (TempData["SiparisGuncelle"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Siparis bilgileri güncellendi.'
+        })
+    </script>
+}
+
+
+@if (TempData["SiparisEklendi"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Girilen Ürünler Siparişe Eklendi.'
+        })
+    </script>
+}
+
+@if (TempData["SiparisUrunSilindi"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Ürün Siparişten Kaldırıldı.'
+        })
+    </script>
+}
+@* -------------------------Toast Bildirimleri Son--------------------------------*@

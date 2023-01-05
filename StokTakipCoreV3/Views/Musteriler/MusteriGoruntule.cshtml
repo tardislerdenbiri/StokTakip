@@ -1,0 +1,221 @@
+﻿@using EntityLayer.Concrete
+@model StokTakipCoreV3.Models.FirmaAndHistoryView
+@{
+    ViewData["Title"] = "MusteriGoruntule";
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+
+
+<div class="page-title">
+    <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+            <h3>Müşteri Görüntüleme</h3>
+            <p class="text-subtitle text-muted">Bu alan sisteme kayıtlı olan müşterinin geçmişe dönük işlemleri ve bilgilerinin gösterildiği alandır.</p>
+        </div>
+        <div class="col-12 col-md-6 order-md-2 order-first">
+            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                <ol class="breadcrumb">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#musteribilgiedit">
+                        Müşteri Bilgilerini Düzenle
+                    </button>&nbsp;
+                    <a href="/Musteriler/MusteriSil/@Model.Company.CompanyID">
+                        <button class="btn btn-danger">Müşteriyi Sil</button>
+                    </a>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<!-- // Müşteri Bilgileri Start -->
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-6">
+            <div class="card">
+                  @*<div class="card-header">
+
+                </div>*@
+                <div class="card-content">
+                    <div class="card-body">
+                        <form class="form">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Musteri Adı")  @Html.ValidationMessageFor(x => x.Company.CompanyName, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(x => x.Company.CompanyName, new { disabled = "disabled", @class = "form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Musteri Telefon") @Html.ValidationMessageFor(x => x.Company.CompanyPhone, "", new { @class = "text-danger" })
+                                        @Html.TextBoxFor(x => x.Company.CompanyPhone, new { disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                  <div class="col-md-12 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Musteri Adres") @Html.ValidationMessageFor(x => x.Company.CompanyAdress, "", new { @class = "text-danger" })
+                                        @Html.TextAreaFor(x => x.Company.CompanyAdress, new { @rows =4, disabled = "disabled", @class = "form-control" })
+                                    </div>
+                                </div>
+                                @*<div class="col-12 d-flex justify-content-end">
+
+                                </div>*@
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                @*<div class="card-header">
+
+                </div>*@
+                <div class="card-content">
+                    <div class="card-body">
+                        @using (Html.BeginForm("MusteriNotGuncelle", "Musteriler", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-12">
+                                    @Html.TextBoxFor(x => x.Company.CompanyID, new { type = "hidden" })
+                                    <div class="form-group">
+                                        @Html.Label("Müşteri Notları")@Html.ValidationMessageFor(x => x.Company.CompanyNot, "", new { @class = "text-danger" })
+                                        @Html.TextAreaFor(x => x.Company.CompanyNot, new { @rows =6, @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button class="btn btn-info">Güncelle</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- // Müşteri Bilgileri End -->
+<!-- // Müşteri Satın Alma Geçmişi Start -->
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    Müşterinin Satın Alma Geçmişi
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped" id="table1">
+                        <thead>
+                            <tr>
+                                <th>Tarih</th>
+                                <th>Gönderilen Adres</th>
+                                <th>Durum</th>
+                                <th>Nedeni</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Orders.OrderByDescending(x => x.OrderID))
+                            {
+                                <tr>
+                                    <td>@(((DateTime)item.OrderTarih).ToString("dd MMMM yyyy dddd"))</td>
+                                    <td>@item.OrderAdres</td>
+
+                                    @if (item.OrderDurum == true)
+                                    {
+                                        <td> <span class="badge bg-success">@Html.Label("Tamamlandı")</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="badge bg-danger">@Html.Label("Bekleniyor")</span></td>
+                                    }
+                                    <td>@item.OrderNedeni</td>
+                                    @if (@item.OrderDurum == true)
+                                    {
+
+                                        <td> <a role="button" href="/Siparisler/HSiparisGoruntule/@item.OrderID" class="btn btn-info btn-block">Detay</a></td>
+
+                                    }
+                                    else
+                                    {
+                                        <td> <a role="button" href="/Siparisler/SiparisGoruntule/@item.OrderID" class="btn btn-info btn-block">Detay</a></td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- // Müşteri Satın Alma Geçmişi End -->
+
+
+
+
+
+
+
+<!--Modal Start -->
+@await Html.PartialAsync("/Views/Musteriler/_MusteriDuzenle.cshtml")
+<!--Modal End -->
+
+
+
+@* ---------------------------Toast Bildirimleri---------------------------------*@
+
+@if (TempData["MusteriUpdate"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1800,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Müşteri bilgileri güncellendi.'
+        })
+
+    </script>
+}
+
+@if (TempData["MusteriNotGuncellendi"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1800,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Müşteri notu güncellendi.'
+        })
+
+    </script>
+}
+@* -------------------------Toast Bildirimleri Son--------------------------------*@

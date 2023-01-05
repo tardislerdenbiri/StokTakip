@@ -1,0 +1,57 @@
+﻿@using EntityLayer.Concrete
+@model StokTakipCoreV3.Models.SiparisView
+
+<!--Siparişe Ürün Ekleme Modal -->
+@using (Html.BeginForm("SiparisUrunEkle", "Siparisler", FormMethod.Post, new { @class = "form-inline", role = "form" }))
+{
+
+    <div class="modal note-modal-header text-left modal-m" id="siparisurunekle" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Siparişe Ürün Ekle</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="frmEmp">
+                    <!-- // Basic multiple Column Form section start -->
+                    <section id="multiple-column-form">
+                        <div class="row match-height">
+                            <div class="col-12">
+                                <div class="card">
+                                    @*<div class="card-header">*@
+                                    <h6 class="text-danger">@Html.ValidationSummary() </h6>
+                                    <span id="message"></span>
+                                    @*</div>*@
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                @Html.TextBoxFor(x => x.Order.OrderID, new { type = "hidden" })
+                                                <div class="col-md-12 col-12">
+                                                    <div class="form-group">
+                                                        @Html.Label("Ürün Seri No (Tekli/Toplu) Giriniz")
+                                                        @Html.TextArea("StokSn", new { @rows=5, @class = "form-control" })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-12 d-flex justify-content-between">
+                        <button type="submit" id="btnEdit" class="btn btn-primary me-1 mb-1">Ekle</button>
+                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Temizle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

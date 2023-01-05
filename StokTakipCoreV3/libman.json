@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "select2@4.0.13",
+      "destination": "wwwroot/select2/"
+    },
+    {
+      "library": "bootstrap@5.2.3",
+      "destination": "wwwroot/bootstrap/"
+    },
+    {
+      "library": "jquery@3.6.3",
+      "destination": "wwwroot/jquery/"
+    },
+    {
+      "library": "validate-js@2.0.1",
+      "destination": "wwwroot/validate-js/"
+    },
+    {
+      "library": "jquery-validation-unobtrusive@4.0.0",
+      "destination": "wwwroot/jquery-validation-unobtrusive/"
+    }
+  ]
+}
