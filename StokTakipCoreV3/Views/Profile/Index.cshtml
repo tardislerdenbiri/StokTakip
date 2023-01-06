@@ -64,136 +64,137 @@
                 </div>*@
             </div>
             <div class="col-md-8">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">İsim Soyisim</h6>
-                            </div>
-                            <span class="item-display">
-                                <input type="text" required asp-for="appUserEdit.Name" class="form-control">
+                <form method="post" class="form-inline">
+                    <div class="card mb-3">
 
-                                <span class="item-field">
-                                    <input type="text" required asp-for="appUserEdit.Name" class="form-control">
-                                    <div class="valid-feedback">
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.ValidationSummary()
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                       @Html.Label("İsim")
+                                        <input type="text" required asp-for="appUser.Name" class="form-control">
+                                        <span class="text-danger" asp-validation-for="appUser.Name"></span>
                                     </div>
-                                    <div class="invalid-feedback">
-                                        @Html.ValidationMessageFor(x => x.appUserEdit.Name, "", new { @class = "text-danger" })
+                                </div>
+                                 <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Soyisim")
+                                        <input type="text" required asp-for="appUser.Surname" class="form-control">
+                                        <span class="text-danger" asp-validation-for="appUser.Surname"></span>
                                     </div>
-                                </span>
-                            </span>
-                            <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(x=>x.appUser.Name) @Html.DisplayFor(x=>x.appUser.Surname)
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Kullanıcı Adı</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(x=>x.appUser.UserName)
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Email</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(x=>x.appUser.Email)
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Telefon No</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                @Html.DisplayFor(x=>x.appUser.PhoneNumber)
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#profilduzenle">
-                                    Düzenle
-                                </button>
+                                </div>
+                                 <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Kullanıcı Adı")
+                                        <input type="text" required asp-for="appUser.UserName" class="form-control">
+                                        <span class="text-danger" asp-validation-for="appUser.UserName"></span>
+                                    </div>
+                                </div>
+                                 <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Mail")
+                                        <input type="text" required asp-for="appUser.Email" class="form-control">
+                                        <span class="text-danger" asp-validation-for="appUser.Email"></span>
+                                    </div>
+                                </div>
+                                 <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Telefon Numarası")
+                                        <input type="tel" required asp-for="appUser.PhoneNumber" class="form-control">
+                                        <span class="text-danger" asp-validation-for="appUser.PhoneNumber"></span>
+                                    </div>
+                                </div>
+                                 <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Şifre")
+                                        <input type="text" required asp-for="password" class="form-control">
+                                        <span class="text-danger" asp-validation-for="password"></span>
+                                    </div>
+                                </div>
+                                          <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        @Html.Label("Şifre Tekrar")
+                                        <input type="text" required asp-for="confirmpassword" class="form-control">
+                                        <span class="text-danger" asp-validation-for="confirmpassword"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                @*
-                <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
-                <div class="card h-100">
-                <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                <small>Web Design</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>Website Markup</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>One Page</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>Mobile Template</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>Backend API</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                </div>
-                </div>
-                </div>
-                <div class="col-sm-6 mb-3">
-                <div class="card h-100">
-                <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                <small>Web Design</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>Website Markup</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>One Page</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>Mobile Template</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <small>Backend API</small>
-                <div class="progress mb-3" style="height: 5px">
-                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                </div>
-                </div>
-                </div>
-                </div>*@
-
-
-
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary me-1 mb-1">Güncelle</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
+            @*
+            <div class="row gutters-sm">
+            <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+            <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
+            <small>Web Design</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>Website Markup</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>One Page</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>Mobile Template</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>Backend API</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+            <div class="card h-100">
+            <div class="card-body">
+            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
+            <small>Web Design</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>Website Markup</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>One Page</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>Mobile Template</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small>Backend API</small>
+            <div class="progress mb-3" style="height: 5px">
+            <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>*@
 
+
+
+        </div>
     </div>
+
+</div>
 </div>
 
 
 
 
-<!--Modal Start -->
-@await Html.PartialAsync("/Views/Profile/_ProfilDuzenle.cshtml")
-
-<!--Modal End -->

@@ -8,8 +8,8 @@ namespace StokTakipCoreV3.Models
         public string password { get; set; }
         public string confirmpassword { get; set; }
 
+        public IEnumerable<AppUser> appUsers { get; set; }
         public AppUser appUser { get; set; }
-        public AppUser appUserEdit { get; set; }
 
     }
 }

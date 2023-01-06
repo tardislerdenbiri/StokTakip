@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StokTakipCoreV3.Models;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace StokTakipCoreV3.Controllers
@@ -26,26 +27,26 @@ namespace StokTakipCoreV3.Controllers
             var values = await _userManager.FindByNameAsync(User.Identity.Name);
             UserEditViewModel userEditViewModel = new UserEditViewModel();
             userEditViewModel.appUser = aum.TGetByID(values.Id);
-            userEditViewModel.appUserEdit=aum.TGetByID(values.Id);
             return View(userEditViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ProfilDuzenle(UserEditViewModel p)
+        public async Task<IActionResult> Index(UserEditViewModel model)
         {
-
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            user.Name = p.appUserEdit.Name;
-            user.Surname = p.appUserEdit.Surname;
-            user.UserName = p.appUserEdit.UserName;
-            user.Email = p.appUserEdit.Email;
-            user.PhoneNumber = p.appUserEdit.PhoneNumber;
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, p.password);
+            user.Name = model.appUser.Name;
+            user.Surname = model.appUser.Surname;
+            user.UserName = model.appUser.UserName;
+            user.PhoneNumber = model.appUser.PhoneNumber;
+            user.Email = model.appUser.Email;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.password);
+
             var result =await _userManager.UpdateAsync(user);
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index");
+                TempData["updatemessage"] = "";
+                return Redirect("/Login/Logout");
             }
             else
             {
@@ -54,8 +55,7 @@ namespace StokTakipCoreV3.Controllers
                     ModelState.AddModelError("", item.Description);
                 }
             }
-            TempData["SiparisGuncelle"] = "";
-            return RedirectToAction("Index");
+            return View();
 
         }
     }
