@@ -30,10 +30,10 @@
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <h4>@Html.DisplayFor(x=>x.appUser.Name) @Html.DisplayFor(x=>x.appUser.Surname)</h4>
-                                <p class="text-secondary mb-1">Full Stack Developer</p>
+                                @*  <p class="text-secondary mb-1">Full Stack Developer</p>
                                 <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
                                 <button class="btn btn-primary">Follow</button>
-                                <button class="btn btn-outline-primary">Message</button>
+                                <button class="btn btn-outline-primary">Message</button>*@
                             </div>
                         </div>
                     </div>
@@ -72,61 +72,60 @@
                                 @Html.ValidationSummary()
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                       @Html.Label("İsim")
+                                        @Html.Label("İsim")
                                         <input type="text" required asp-for="appUser.Name" class="form-control">
                                         <span class="text-danger" asp-validation-for="appUser.Name"></span>
                                     </div>
                                 </div>
-                                 <div class="col-md-6 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         @Html.Label("Soyisim")
                                         <input type="text" required asp-for="appUser.Surname" class="form-control">
                                         <span class="text-danger" asp-validation-for="appUser.Surname"></span>
                                     </div>
                                 </div>
-                                 <div class="col-md-6 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         @Html.Label("Kullanıcı Adı")
                                         <input type="text" required asp-for="appUser.UserName" class="form-control">
                                         <span class="text-danger" asp-validation-for="appUser.UserName"></span>
                                     </div>
                                 </div>
-                                 <div class="col-md-6 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         @Html.Label("Mail")
                                         <input type="text" required asp-for="appUser.Email" class="form-control">
                                         <span class="text-danger" asp-validation-for="appUser.Email"></span>
                                     </div>
                                 </div>
-                                 <div class="col-md-6 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         @Html.Label("Telefon Numarası")
                                         <input type="tel" required asp-for="appUser.PhoneNumber" class="form-control">
                                         <span class="text-danger" asp-validation-for="appUser.PhoneNumber"></span>
                                     </div>
                                 </div>
-                                 <div class="col-md-6 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         @Html.Label("Şifre")
                                         <input type="text" required asp-for="password" class="form-control">
                                         <span class="text-danger" asp-validation-for="password"></span>
                                     </div>
                                 </div>
-                                          <div class="col-md-6 col-12">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         @Html.Label("Şifre Tekrar")
                                         <input type="text" required asp-for="confirmpassword" class="form-control">
                                         <span class="text-danger" asp-validation-for="confirmpassword"></span>
                                     </div>
                                 </div>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary me-1 mb-1">Güncelle</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary me-1 mb-1">Güncelle</button>
-                        </div>
-                    </div>
+             
                 </form>
             </div>
             @*

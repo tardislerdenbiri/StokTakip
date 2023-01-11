@@ -21,6 +21,16 @@ namespace StokTakipCoreV3.Controllers
 
         public IActionResult Index()
         {
+
+            List<SelectListItem> depolar = (from x in storm.TGetList()
+                                            select new SelectListItem
+                                            {
+                                                Text = x.StoresName,
+                                                Value = x.StoresID.ToString()
+                                            }).ToList();
+            ViewBag.depolar = depolar;
+
+
             ProductsAndStokView productsAndStokView = new ProductsAndStokView();
             productsAndStokView.Productss = pm.TGetList();
             productsAndStokView.Stoks = sm.TGetList();
@@ -144,6 +154,23 @@ namespace StokTakipCoreV3.Controllers
                         $"{uid}.xlsx");
                 }
             }
+        }
+
+        [HttpPost]
+        public IActionResult DepoTransfer(Stok stok, Stores stores)
+        {
+            List<string> stoksntrim = stok.StokSn.Split(new[] { '\r', '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            foreach (var sn in stoksntrim)
+            {
+                var value = sm.GetStokSn(sn).FirstOrDefault();
+                value.StoresID = stores.StoresID;
+                sm.TUpdate(value);
+            }
+           
+
+            TempData["depotransfer"] = "";
+            return RedirectToAction("Index");
         }
     }
 }

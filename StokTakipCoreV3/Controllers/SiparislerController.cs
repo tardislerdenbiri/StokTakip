@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using ClosedXML.Excel;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
@@ -143,7 +144,7 @@ namespace StokTakipCoreV3.Controllers
         [HttpPost]
         public IActionResult SiparisUrunEkle(Order order, string StokSn)
         {
-            var stoksntrim = StokSn.Split(new[] { '\r','\n', ' '},StringSplitOptions.RemoveEmptyEntries);
+            var stoksntrim = StokSn.Split(new[] { '\r', '\n', ' ' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string sn in stoksntrim)
             {
                 var item = sm.GetStokSn(sn).FirstOrDefault();
@@ -151,7 +152,7 @@ namespace StokTakipCoreV3.Controllers
                 sm.TUpdate(item);
             }
             TempData["SiparisEklendi"] = "";
-            return Redirect("SiparisGoruntule/"+order.OrderID);
+            return Redirect("SiparisGoruntule/" + order.OrderID);
         }
 
         public IActionResult SiparisUrunSil(int id)
@@ -161,7 +162,7 @@ namespace StokTakipCoreV3.Controllers
             value.OrderID = null;
             sm.TUpdate(value);
             TempData["SiparisUrunSilindi"] = "";
-            return Redirect("/Siparisler/SiparisGoruntule/"+returnid);
+            return Redirect("/Siparisler/SiparisGoruntule/" + returnid);
         }
 
         public IActionResult ExportToExcel(Order order)
@@ -195,6 +196,43 @@ namespace StokTakipCoreV3.Controllers
                         $"{order.Company.CompanyName}-{order.OrderTarih.ToShortDateString()}-{uid}.xlsx");
                 }
             }
+        }
+
+        [HttpPost]
+
+        public IActionResult SiparisTamamla(Order order, History history)
+        {
+            Context c = new Context();
+            var historylist = new List<History>();
+
+            var value = sm.GetStokSiparisTamamla(order.OrderID);
+            foreach (var item in value)
+            {
+                historylist.Add(new History()
+                {
+                    HistoryTarih = item.Order.OrderTarih,
+                    HistoryFirmaAdi = item.Order.OrderAdres,
+                    HistorySiparisAdres = item.Order.OrderAdres,
+                    HistoryUrunMarka = item.Products.ProductsMarka,
+                    HistoryUrunModel = item.Products.ProductsModel,
+                    HistoryUrunSn = item.StokSn,
+                    HistoryUrunDepo = item.Stores.StoresName,
+                    CompanyID = item.Order.CompanyID,
+                    OrderID = item.Order.OrderID,
+                });
+                sm.TDelete(item);
+
+
+            }
+            var orderdurum = om.TGetByID(order.OrderID);
+            orderdurum.OrderDurum = true;
+            om.TUpdate(orderdurum);
+
+            c.Histories.AddRange(historylist);
+            c.SaveChanges();
+
+            TempData["SiparisTamamlandi"] = "";
+            return Redirect("HSiparisGoruntule/"+order.OrderID);
         }
     }
 }

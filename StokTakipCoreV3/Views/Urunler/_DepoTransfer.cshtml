@@ -1,21 +1,23 @@
-﻿@model StokTakipCoreV3.Models.ProductsAndStokView
+﻿@using EntityLayer.Concrete
+@model StokTakipCoreV3.Models.ProductsAndStokView
 
-<!--Ürün Stok Ekleme Modal -->
-@using (Html.BeginForm("UrunStokEkle", "Urunler", FormMethod.Post, new { id = "stokekle", @class = "form-inline needs-validation novalidate", role = "form" }))
+<!--Yeni Ürün Ekleme Modal -->
+@using (Html.BeginForm("DepoTransfer", "Urunler", FormMethod.Post, new { id = "depotransferjs", @class = "form-inline needs-validation novalidate", role = "form", }))
 {
 
-    <div class="modal note-modal-header text-left modal-lg" id="urunstokekle" tabindex="-1" role="dialog"
+    <div class="modal note-modal-header fade text-left modal-lg" id="depotransfer" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Siparişe Ürün Ekle</h5>
+                    <h5 class="modal-title" id="myModalLabel1">Depo Transfer</h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                         aria-label="Close">
                         <i data-feather="x"></i>
                     </button>
                 </div>
-                <div class="modal-body" id="frmEmp">
+                <div class="modal-body">
+
                     <!-- // Basic multiple Column Form section start -->
                     <section id="multiple-column-form">
                         <div class="row match-height">
@@ -27,10 +29,10 @@
                                         <div class="card-body">
                                             <form class="form">
                                                 <div class="row">
-                                                    @Html.TextBoxFor(x => x.Products.ProductsID, new { type = "hidden" })
+
                                                     <div class="col-md-12 col-12">
                                                         <div class="form-group">
-                                                            @Html.Label("Depo")
+                                                            @Html.Label("Transfer Edilecek Depo")
                                                             <select asp-for="Stores.StoresID" asp-items="@ViewBag.depolar" class="form-select" required>
                                                                 <option selected disabled value=""></option>
                                                             </select>
@@ -43,7 +45,7 @@
                                                     </div>
                                                     <div class="col-md-12 col-12">
                                                         <div class="form-group">
-                                                            @Html.Label("Ürün Seri No (Tekli/Toplu) Giriniz")
+                                                            @Html.Label("Transfer Edilecek Ürün Seri No (Tekli/Toplu) Giriniz")
                                                             <textarea type="text" required asp-for="Stok.StokSn" class="form-control" rows="5"></textarea>
                                                             <div class="valid-feedback">
                                                             </div>
@@ -71,7 +73,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col-12 d-flex justify-content-between">
-                        <button type="submit" id="btnEdit" class="btn btn-primary me-1 mb-1">Ekle</button>
+                        <button type="submit" id="btnRegister" class="btn btn-primary me-1 mb-1">Transfer Et</button>
                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Temizle</button>
                     </div>
                 </div>
@@ -79,34 +81,6 @@
         </div>
     </div>
 }
-
-
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function () {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
-
-
-
-
 
 
 
@@ -161,4 +135,32 @@
 
     });
 
+</script>
+
+
+
+
+
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>

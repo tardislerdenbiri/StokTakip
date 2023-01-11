@@ -14,5 +14,6 @@ namespace BusinessLayer.Abstract
         List<Stok> GetListSiparisView(int id);
         List<Stok> OrderDeleteGetStokProductid(int id);
         List<Stok> GetStokSn(string sn);
+        List<Stok> GetStokSiparisTamamla(int id);
     }
 }

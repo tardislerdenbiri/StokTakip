@@ -28,6 +28,11 @@ namespace BusinessLayer.Concrete
             return _stokDal.GetListByFilter(x => x.ProductsID == id);
         }
 
+        public List<Stok> GetStokSiparisTamamla(int id)
+        {
+            return _stokDal.GetListByFilter(x=>x.OrderID==id);
+        }
+
         public List<Stok> GetStokSn(string sn)
         {
             return _stokDal.GetListByFilter(x => x.StokSn == sn);
@@ -72,6 +77,5 @@ namespace BusinessLayer.Concrete
         {
             _stokDal.Update(t);
         }
-
     }
 }

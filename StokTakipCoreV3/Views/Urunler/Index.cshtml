@@ -16,11 +16,14 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        
-                            <form method="post" asp-controller="Urunler" asp-action="ExportToExcel">
-                                <button class="btn btn-success">Ürünlerin Excel Çıktısı Al</button>
-                            </form>
-                        
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                data-bs-target="#depotransfer">
+                            Depo Transfer  <i class="bi bi-arrow-left-right"></i>
+                        </button>&nbsp;
+                        <form method="post" asp-controller="Urunler" asp-action="ExportToExcel">
+                            <button class="btn btn-success">Ürünlerin Excel Çıktısı Al</button>
+                        </form>
+
                     </ol>
                 </nav>
             </div>
@@ -50,7 +53,7 @@
                                 <td>@item.ProductsModel</td>
                                 @if (@item.Stoks.Where(x => x.ProductsID == item.ProductsID).Count() < 10)
                                 {
-                                    <td style="color:red; font-size:20px;">@item.Stoks.Where(x=>x.ProductsID==item.ProductsID).Count() Adet</td>
+                                    <td style="color:red; font-size:20px;">@item.Stoks.Where(x=>x.ProductsID==item.ProductsID).Where(x=>x.OrderID==null).Count() Adet</td>
                                 }
                                 else
                                 {
@@ -80,7 +83,7 @@
 
 <!--Modal Start -->
 @await Html.PartialAsync("/Views/Urunler/_UrunEkle.cshtml")
-
+@await Html.PartialAsync("/Views/Urunler/_DepoTransfer.cshtml")
 <!--Modal End -->
 @* ---------------------------Toast Bildirimleri---------------------------------*@
 
@@ -127,6 +130,30 @@
         Toast.fire({
             icon: 'success',
             title: 'Başarılı! Ürün sistemen silindi.'
+        })
+    </script>
+}
+
+@if (TempData["depotransfer"] != null)
+{
+
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Başarılı! Depolar arası transfer tamamlandı.'
         })
     </script>
 }
