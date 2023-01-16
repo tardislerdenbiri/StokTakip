@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StokTakipCoreV3.Models;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace StokTakipCoreV3.Controllers
@@ -21,39 +22,39 @@ namespace StokTakipCoreV3.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpGet]
-        public IActionResult SignUp()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> SignUp(UserRegisterViewModel p)
-        {
-            AppUser appUser = new AppUser()
-            {
-                Name = p.Name,
-                Surname = p.Surname,
-                UserName = p.UserName,
-                Email = p.Mail
-            };
-            if (p.Password == p.ConfirmPassword)
-            {
-                var result = await _userManager.CreateAsync(appUser, p.Password);
+        //[HttpGet]
+        //public IActionResult SignUp()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> SignUp(UserRegisterViewModel p)
+        //{
+        //    AppUser appUser = new AppUser()
+        //    {
+        //        Name = p.Name,
+        //        Surname = p.Surname,
+        //        UserName = p.UserName,
+        //        Email = p.Mail
+        //    };
+        //    if (p.Password == p.ConfirmPassword)
+        //    {
+        //        var result = await _userManager.CreateAsync(appUser, p.Password);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("SignIn");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
-                    {
-                        ModelState.AddModelError("", item.Description);
-                    }
-                }
-            }
-            return View(p);
-        }
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("SignIn");
+        //        }
+        //        else
+        //        {
+        //            foreach (var item in result.Errors)
+        //            {
+        //                ModelState.AddModelError("", item.Description);
+        //            }
+        //        }
+        //    }
+        //    return View(p);
+        //}
 
         [HttpGet]
         public IActionResult SignIn()
@@ -81,6 +82,7 @@ namespace StokTakipCoreV3.Controllers
                 }
                 else
                 {
+                    TempData["yanlisparola"] = "";
                     return RedirectToAction("SignIn", "Login");
                 }
             }

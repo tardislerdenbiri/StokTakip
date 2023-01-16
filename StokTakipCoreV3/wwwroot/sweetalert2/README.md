@@ -6,7 +6,6 @@ A beautiful, responsive, customizable, accessible (WAI-ARIA) replacement <br> fo
 
 ---
 
-### [Installation](https://sweetalert2.github.io/#download) | [Usage](https://sweetalert2.github.io/#usage) | [Examples](https://sweetalert2.github.io/#examples) | [Recipe gallery](https://sweetalert2.github.io/recipe-gallery/) | [Themes](https://github.com/sweetalert2/sweetalert2-themes) | [React](https://github.com/sweetalert2/sweetalert2-react-content) | [Angular](https://github.com/sweetalert2/ngx-sweetalert2) | [:heart: Donate](https://sweetalert2.github.io/#donations)
 
 ---
 
@@ -141,11 +140,3 @@ NSFW Sponsors
 </tr>
 </table>
 
-Support and Donations
----------------------
-
-Has SweetAlert2 helped you create an amazing application? You can show your support via [GitHub Sponsors](https://github.com/sponsors/limonte)
-
-Alternative ways for donations (PayPal, cryptocurrencies, etc.) are listed here: https://sweetalert2.github.io/#donations
-
-### [Hall of Donators :trophy:](DONATIONS.md)

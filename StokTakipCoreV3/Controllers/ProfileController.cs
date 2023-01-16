@@ -58,5 +58,13 @@ namespace StokTakipCoreV3.Controllers
             return View();
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Users()
+        {
+            UserEditViewModel userEditViewModel = new UserEditViewModel();
+            userEditViewModel.appUsers = aum.TGetList();
+            return View(userEditViewModel);
+        }
     }
 }

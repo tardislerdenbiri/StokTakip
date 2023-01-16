@@ -151,7 +151,7 @@ namespace StokTakipCoreV3.Controllers
                     return File(
                         content,
                         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        $"{uid}.xlsx");
+                        $"UrunlerStokBilgisi-{uid}.xlsx");
                 }
             }
         }

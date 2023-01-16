@@ -122,13 +122,8 @@
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", {
             fps: 10,
-            qrbox: 400,
-            useBarCodeDetectorIfSupported: true,
-            rememberLastUsedCamera: true,
-            aspectRatio: 4 / 3,
-            showTorchButtonIfSupported: true,
-            showZoomSliderIfSupported: true,
-            defaultZoomValueIfSupported: 2
+            qrbox: { width: 100, height: 100 },
+            rememberLastUsedCamera: true
 
         });
         html5QrcodeScanner.render(onScanSuccess);
