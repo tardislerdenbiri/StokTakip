@@ -15,7 +15,6 @@ namespace DataAccessLayer.Concrete
         {
             optionsBuilder.UseLazyLoadingProxies();
             optionsBuilder.UseSqlServer("server=DESKTOP-CP2KTK6;database=StokTakipCore;integrated security=true;");
-            //optionsBuilder.UseSqlServer("server=localhost;database=admin_stoktakip;user=pleskpanel;password=Asdasdqweqwe123!");
 
         }
 
