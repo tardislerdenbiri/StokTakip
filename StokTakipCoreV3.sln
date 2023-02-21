@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StokTakipCoreV3", "StokTakipCoreV3\StokTakipCoreV3.csproj", "{9A31A208-6A72-4F17-B298-DA6DA6E4F1CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StokTakipCoreV3", "StokTakipCoreV3\StokTakipCoreV3.csproj", "{9A31A208-6A72-4F17-B298-DA6DA6E4F1CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityLayer", "EntityLayer\EntityLayer.csproj", "{4D52B623-4FC5-4EE3-A1A7-E675CF10FBCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityLayer", "EntityLayer\EntityLayer.csproj", "{4D52B623-4FC5-4EE3-A1A7-E675CF10FBCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{8A595F30-F1AC-4C0A-A705-326E5B3C8B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLayer", "BusinessLayer\BusinessLayer.csproj", "{8A595F30-F1AC-4C0A-A705-326E5B3C8B8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{24A90AD7-E394-43FD-B5AD-5C7F40FA4F4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{24A90AD7-E394-43FD-B5AD-5C7F40FA4F4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshot", "Screenshot", "{1D0E0B65-35AD-4868-A0C1-9D28D58E32BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
